@@ -1,0 +1,50 @@
+%YAML:1.0
+
+# Set to 1 to use the satellite model, 0 for traditional SLAM
+use_sat: 1
+
+# Focal length and distortion parameters.
+f: 
+k1: 
+k2: 
+
+# Camera poses of the first two frames
+# The rotation matrix follows computer vision convention (X-right, Y-down, Z-forward)
+# The rotation matrix transforms a point from the world to camera (x = K[R -Rc]X)
+R1:  !!opencv-matrix
+   rows: 3
+   cols: 3
+   dt: d
+   data: [0, 0, 0, 0, 0 ,0 ,0 ,0 ,0]
+R2:  !!opencv-matrix
+   rows: 3
+   cols: 3
+   dt: d
+   data: [0, 0, 0, 0, 0 ,0 ,0 ,0 ,0]
+# Camera centers
+c1: [ 0, 0, 0 ]
+c2: [ 0, 0, 0 ]
+
+# Input folders for ground-view video frames and semantic labels. Pixels labeled as buildings should have values of [70, 70, 70]
+ground: ""
+ground_semantic: ""
+
+# Output folder to store the results
+results_folder: ""
+
+# DSM raster, expected to be Float32 tif
+DSM: ""
+# DSM buildings raster, expected to be Float32 tif. This file should contain values for pixels identified as buildings only.
+DSM_building: ""
+# DSM TFW
+DSM_tfw: ""
+# To avoid percision loss, we define the offset
+DSM_offset: [ 0, 0, 0 ]
+# DSM constant ground. We assume constant ground during projections only.
+DSM_ground: 0
+# Input road mask, expected to be RGB. Road pixels should have values of [255,255,255]
+sat_road_mask: ""
+
+# alpha and beta in Eq.(4) in the paper
+depth_error_weight: 0.15
+height_error_weight: 15
